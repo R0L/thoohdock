@@ -24,7 +24,7 @@ services:
       - ${SOURCE_DIR}:/var/www/html:rw
       - ${PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
       - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
-    restart: always
+#    restart: always
     cap_add:
       - SYS_PTRACE
     networks:
