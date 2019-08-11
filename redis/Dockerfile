@@ -7,7 +7,7 @@ RUN mkdir -p /usr/local/etc/redis
 COPY redis.conf /usr/local/etc/redis/redis.conf
 
 RUN mkdir -p /var/log/redis /var/lib/redis
-RUN chmod 755 /var/log/redis /var/lib/redis
+RUN chmod 777 -R /var/log/redis /var/lib/redis
 
 VOLUME /data
 
