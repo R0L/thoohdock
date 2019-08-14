@@ -7,6 +7,7 @@ LABEL maintainer="php73 Docker Maintainers <rol@thooh.com>"
 
 ARG PHP_SWOOLE=4.2.1
 ARG PHP_MEMCACHED=3.1.3
+ARG PHP_REDIS=4.1.1
 ARG PHP_ZENDOPCACHE=7.0.5
 ARG PHP_XDEBUG=2.7.2
 ARG PHP_MONGODB=1.5.3
@@ -81,6 +82,11 @@ RUN set -xe; \
     && tar -xf memcached-${PHP_MEMCACHED}.tgz -C memcached --strip-components=1 \
     && ( cd memcached && phpize && ./configure && make -j$(nproc) && make install ) \
     && docker-php-ext-enable memcached \
+
+    && mkdir redis \
+    && tar -xf redis-${PHP_REDIS}.tgz -C redis --strip-components=1 \
+    && ( cd redis && phpize && ./configure && make -j$(nproc) && make install ) \
+    && docker-php-ext-enable redis \
 
 #?    # install zendopcache, 5.6 以前使用opcache
 #    && mkdir zendopcache \
