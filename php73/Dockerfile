@@ -20,8 +20,7 @@ RUN set -xe; \
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
     && apk update \
     # 相关依赖必须手动安装
-    && apk add --no-cache --virtual .build-deps \
-            $PHPIZE_DEPS \
+    && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
 
     # php extensions
     && docker-php-source extract \
@@ -124,6 +123,11 @@ RUN set -xe; \
     && tar -xf amqp-${PHP_AMQP}.tgz -C amqp --strip-components=1 \
     && ( cd amqp && phpize && ./configure && make -j$(nproc) && make install ) \
     && docker-php-ext-enable amqp \
+
+    # install kafka
+    && apk add librdkafka librdkafka-dev \
+    && ( cd php-rdkafka && phpize && ./configure && make -j$(nproc) && make install ) \
+    && docker-php-ext-enable rdkafka \
 
     && rm -rf /tmp/extensions \
     && docker-php-source delete 
