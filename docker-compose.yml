@@ -298,6 +298,13 @@ services:
       - frontend
       - backend
 
+  golang:
+    build: ./golang
+    ports:
+    - "${GOLANG_HTTP_HOST_PORT}:80"
+    networks:
+    - frontend
+
 networks:
   frontend:
     driver: ${NETWORKS_DRIVER}

@@ -1,0 +1,5 @@
+FROM golang
+
+WORKDIR $GOPATH/src
+
+EXPOSE 80
