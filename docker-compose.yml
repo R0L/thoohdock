@@ -8,6 +8,8 @@ services:
       - ${WORKSPACE_CONF_FILE}:/usr/local/etc/php/php.ini:ro
       - ${WORKSPACE_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
       - ${WORKSPACE_LOG_PATH}:/var/log/php
+    ports:
+      - "9501:9501"
     restart: always
     cap_add:
       - SYS_PTRACE
@@ -45,6 +47,23 @@ services:
     networks:
       - frontend
       - backend
+
+  php56:
+    build:
+      context: ./php56
+    volumes:
+      - ${SOURCE_DIR}:/var/www/html:rw
+      - ${PHP56_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP56_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP56_LOG_PATH}:/var/log/php
+    cap_add:
+      - SYS_PTRACE
+    environment:
+      - PHP_IDE_CONFIG=${PHP56_IDE_CONFIG}
+    networks:
+      - frontend
+      - backend
+
 
   nginx:
     build:

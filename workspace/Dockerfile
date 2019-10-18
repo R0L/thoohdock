@@ -10,3 +10,13 @@ RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.ph
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer \
     && composer config -g repo.packagist composer https://packagist.phpcomposer.com
+
+
+
+# Install phpuint and add its bin to the PATH.
+RUN wget -q -O phpunit.phar https://phar.phpunit.de/phpunit-7.phar\
+    && chmod +x phpunit.phar \
+    && mv phpunit.phar /usr/local/bin/phpunit
+
+
+RUN apk add git
