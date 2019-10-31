@@ -6,7 +6,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html:rw
       - ${WORKSPACE_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-      - ${WORKSPACE_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${WORKSPACE_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/test.conf:rw
       - ${WORKSPACE_LOG_PATH}:/var/log/php
     ports:
       - "9501:9501"
@@ -25,7 +25,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html:rw
       - ${PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/test.conf:rw
     #    restart: always
     cap_add:
       - SYS_PTRACE
@@ -38,7 +38,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html:rw
       - ${PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/test.conf:rw
       - ${PHP_LOG_PATH}:/var/log/php
     cap_add:
       - SYS_PTRACE
@@ -54,7 +54,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html:rw
       - ${PHP56_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-      - ${PHP56_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP56_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/test.conf:rw
       - ${PHP56_LOG_PATH}:/var/log/php
     cap_add:
       - SYS_PTRACE
