@@ -1,6 +1,6 @@
 FROM php:5.6-fpm-alpine
 
-LABEL maintainer="php73 Docker Maintainers <rol@thooh.com>"
+LABEL maintainer="php56 Docker Maintainers <rol@thooh.com>"
 
 # 默认扩展
 #Core,ctype,curl,date,dom,fileinfo,filter,ftp,hash,iconv,json,libxml,mbstring,mysqlnd,openssl,pcre,PDO,pdo_sqlite,Phar,posix,readline,Reflection,session,SimpleXML,sodium,SPL,sqlite3,standard,tokenizer,xml,xmlreader,xmlwriter,zlib
@@ -62,47 +62,20 @@ RUN set -xe; \
     && apk add libxml2-dev \
     && docker-php-ext-install -j$(nproc) soap \
 
-#    # install mcrypt  2017-11-30发布的PHP7.2.0已经移除了mcrypt,建议加密的地方用openssl或Sodium (PHP 7.2.0开始用)扩展代替
-#    && apk add libmcrypt-dev \
-#    && docker-php-ext-install -j$(nproc) mcrypt \
-
     # php custom extensions
     && cd /tmp/extensions \
-    
-    # install swoole
-#    && mkdir swoole \
-#    && tar -xf swoole-${PHP_SWOOLE}.tgz -C swoole --strip-components=1 \
-#    && ( cd swoole && phpize && ./configure && make -j$(nproc) && make install ) \
-#    && docker-php-ext-enable swoole \
 
-    # install memcached
-#    && apk add libmemcached-dev \
-#    && mkdir memcached \
-#    && tar -xf memcached-${PHP_MEMCACHED}.tgz -C memcached --strip-components=1 \
-#    && ( cd memcached && phpize && ./configure && make -j$(nproc) && make install ) \
-#    && docker-php-ext-enable memcached \
-
+    # install redis
     && mkdir redis \
     && tar -xf redis-${PHP_REDIS}.tgz -C redis --strip-components=1 \
     && ( cd redis && phpize && ./configure && make -j$(nproc) && make install ) \
     && docker-php-ext-enable redis \
-
-#?    # install zendopcache, 5.6 以前使用opcache
-#    && mkdir zendopcache \
-#    && tar -xf zendopcache-${PHP_ZENDOPCACHE}.tgz -C zendopcache --strip-components=1 \
-#    && ( cd zendopcache && phpize && ./configure && make -j$(nproc) && make install ) \
-#    && docker-php-ext-enable opcache \
 
     # install xdebug
     && mkdir xdebug \
     && tar -xf xdebug-${PHP_XDEBUG}.tgz -C xdebug --strip-components=1 \
     && ( cd xdebug && phpize && ./configure && make -j$(nproc) && make install ) \
     && docker-php-ext-enable xdebug \
-
-#    # install xhprof
-#    && apk add graphviz \
-#    && ( cd xhprof/extension && phpize && ./configure && make -j$(nproc) && make install ) \
-#    && docker-php-ext-enable xhprof \
 
     # install mongodb
     && mkdir mongodb \
