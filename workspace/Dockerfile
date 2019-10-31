@@ -1,4 +1,4 @@
-FROM thoohdock_php73:latest
+FROM thoohdock_php56:latest
 
 #####################################
 # Composer:
@@ -14,7 +14,11 @@ RUN php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.ph
 
 
 # Install phpuint and add its bin to the PATH.
-RUN wget -q -O phpunit.phar https://phar.phpunit.de/phpunit-7.phar\
+#RUN wget -q -O phpunit.phar https://phar.phpunit.de/phpunit-7.phar\
+#    && chmod +x phpunit.phar \
+#    && mv phpunit.phar /usr/local/bin/phpunit
+
+RUN wget -q -O phpunit.phar https://phar.phpunit.de/phpunit-4.8.9.phar \
     && chmod +x phpunit.phar \
     && mv phpunit.phar /usr/local/bin/phpunit
 
