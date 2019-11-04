@@ -24,3 +24,5 @@ RUN wget -q -O phpunit.phar https://phar.phpunit.de/phpunit-4.8.9.phar \
 
 
 RUN apk add git
+
+RUN apk add openssh
