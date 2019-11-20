@@ -6,7 +6,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html:rw
       - ${WORKSPACE_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-      - ${WORKSPACE_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${WORKSPACE_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/test.conf:rw
       - ${WORKSPACE_LOG_PATH}:/var/log/php
     ports:
       - "9501:9501"
@@ -25,7 +25,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html:rw
       - ${PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/test.conf:rw
     #    restart: always
     cap_add:
       - SYS_PTRACE
@@ -38,7 +38,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html:rw
       - ${PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/test.conf:rw
       - ${PHP_LOG_PATH}:/var/log/php
     cap_add:
       - SYS_PTRACE
@@ -54,7 +54,7 @@ services:
     volumes:
       - ${SOURCE_DIR}:/var/www/html:rw
       - ${PHP56_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-      - ${PHP56_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP56_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/test.conf:rw
       - ${PHP56_LOG_PATH}:/var/log/php
     cap_add:
       - SYS_PTRACE
@@ -304,6 +304,28 @@ services:
     - "${GOLANG_HTTP_HOST_PORT}:80"
     networks:
     - frontend
+
+  nsqlookupd:
+    image: nsqio/nsq
+    command: /nsqlookupd
+    ports:
+      - "4160"
+      - "4161"
+  nsqd:
+    image: nsqio/nsq
+    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160
+    depends_on:
+      - nsqlookupd
+    ports:
+      - "4150"
+      - "4151"
+  nsqadmin:
+    image: nsqio/nsq
+    command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
+    depends_on:
+      - nsqlookupd
+    ports:
+      - "4171"
 
 networks:
   frontend:
