@@ -327,6 +327,19 @@ services:
     ports:
       - "4171"
 
+  node:
+    build:
+      context: ./node
+    volumes:
+      - ${SOURCE_DIR}:/var/www/html:rw
+      - ${NODE_LOG_PATH}:/var/log/node
+    ports:
+      - "9999:9999"
+    restart: always
+    networks:
+      - frontend
+      - backend
+
 networks:
   frontend:
     driver: ${NETWORKS_DRIVER}
