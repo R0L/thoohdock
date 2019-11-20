@@ -32,28 +32,26 @@ JMX 和 console 端口冲突
 ### producer
 ```
 
-/opt/kafka/bin/kafka-console-producer.sh --broker-list kafka1:9092,kafka2:9092,kafka3:9092 --topic test
+/opt/kafka/bin/kafka-console-producer.sh --broker-list kafka1:9091,kafka2:9092,kafka3:9093 --topic test
 
 ```
 
 ### consumer
 ```
 
-/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092 --topic test --from-beginning
+/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server kafka1:9091,kafka2:9092,kafka3:9093 --topic test --from-beginning
 
-/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092 --topic test --from-beginning
-
-/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092 --topic test --from-beginning --group group_test
+/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server kafka1:9091,kafka2:9092,kafka3:9093 --topic test --from-beginning --group group_test
 
 ```
 
 ### consumer group
 ```
 
-/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092 --list
+/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server kafka1:9091,kafka2:9092,kafka3:9093 --list
 
-/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092 --group group_test --describe
+/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server kafka1:9091,kafka2:9092,kafka3:9093 --group group_test --describe
 
-/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server kafka1:9092,kafka2:9092,kafka3:9092 --group group_test --describe --members
+/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server kafka1:9091,kafka2:9092,kafka3:9093 --group group_test --describe --members
 
 ```
