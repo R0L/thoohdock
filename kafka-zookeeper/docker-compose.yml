@@ -53,6 +53,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       JMX_PORT: 19091
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
     depends_on:
       - zk1
       - zk2
@@ -74,6 +75,7 @@ services:
       KAFKA_BROKER_ID: 2
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       JMX_PORT: 19092
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
     depends_on:
       - zk1
       - zk2
@@ -95,6 +97,7 @@ services:
       KAFKA_BROKER_ID: 3
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       JMX_PORT: 19093
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
     depends_on:
       - zk1
       - zk2
