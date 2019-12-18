@@ -13,6 +13,8 @@ ARG PHP_XDEBUG=2.7.2
 ARG PHP_MONGODB=1.5.3
 ARG PHP_IMAGICK=3.4.3
 ARG PHP_AMQP=1.9.4
+ARG PHP_GRPC=1.12.0
+ARG PHP_PROTOBUF=3.11.2
 
 COPY ./extensions /tmp/extensions
 
@@ -128,6 +130,18 @@ RUN set -xe; \
     && apk add librdkafka librdkafka-dev \
     && ( cd php-rdkafka && phpize && ./configure && make -j$(nproc) && make install ) \
     && docker-php-ext-enable rdkafka \
+
+    # install grpc
+    && mkdir grpc \
+    && tar -xf grpc-${PHP_GRPC}.tgz -C grpc --strip-components=1 \
+    && ( cd grpc && phpize && ./configure && make -j$(nproc) && make install ) \
+    && docker-php-ext-enable grpc \
+
+     # install protobuf
+    && mkdir protobuf \
+    && tar -xf protobuf-${PHP_PROTOBUF}.tgz -C protobuf --strip-components=1 \
+    && ( cd protobuf && phpize && ./configure && make -j$(nproc) && make install ) \
+    && docker-php-ext-enable protobuf \
 
     && rm -rf /tmp/extensions \
     && docker-php-source delete 
