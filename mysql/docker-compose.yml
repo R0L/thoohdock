@@ -32,6 +32,22 @@ services:
     networks:
       - backend
 
+  mysql57-slave:
+    build:
+      context: ./57-slave
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ${DATA_PATH}/mysql57-slave:/var/lib/mysql
+      - ${MYSQL57_SLAVE_LOG_PATH}:/var/log/mysql
+    ports:
+      - "${MYSQL57_SLAVE_PORT}:3306"
+    networks:
+      - backend
+
   mysql:
     build:
       context: ./latest
