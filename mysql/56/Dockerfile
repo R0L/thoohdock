@@ -7,3 +7,5 @@ RUN mkdir -p /var/log/mysql/ \
 COPY my.cnf /etc/mysql/conf.d/my.cnf
 
 # docker build -f /Users/thooh/Workspace/php/thoohdock/mysql/version/56/Dockerfile .
+
+ENV LANG C.UTF-8

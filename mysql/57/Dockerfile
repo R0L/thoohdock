@@ -9,3 +9,5 @@ COPY my.cnf /etc/mysql/conf.d/my.cnf
 # docker build -f /Users/thooh/Workspace/php/thoohdock/mysql/version/57/Dockerfile .
 
 COPY my.cnf /etc/mysql/conf.d/my.cnf
+
+ENV LANG C.UTF-8
