@@ -1,0 +1,50 @@
+version: "3"
+services:
+  redis-master:
+    build: ./redis-master
+    volumes:
+      - ${DATA_PATH}/redis-master:/data/
+      - ${REDIS_MASTER_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_MASTER_PORT}:6379"
+    networks:
+      - backend
+  redis-slave-1:
+    build: redis-slave-1
+    volumes:
+      - ${DATA_PATH}/redis-slave:/data/redis
+      - ${REDIS_SLAVE_1_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_SLAVE_1_PORT}:6379"
+    networks:
+      - backend
+  redis-slave-2:
+    build: redis-slave-2
+    volumes:
+      - ${DATA_PATH}/redis-slave:/data/redis
+      - ${REDIS_SLAVE_2_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_SLAVE_2_PORT}:6379"
+    networks:
+      - backend
+  redis-sentinel-1:
+    build: redis-sentinel-1
+    ports:
+      - "${REDIS_SENTINEL_1_PORT}:6379"
+    networks:
+      - backend
+  redis-sentinel-2:
+    build: redis-sentinel-2
+    ports:
+      - "${REDIS_SENTINEL_2_PORT}:6379"
+    networks:
+      - backend
+  redis-sentinel-3:
+    build: redis-sentinel-3
+    ports:
+      - "${REDIS_SENTINEL_3_PORT}:6379"
+    networks:
+      - backend
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
