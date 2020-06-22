@@ -1,0 +1,23 @@
+version: "3"
+services:
+  redis-master:
+    build: ./redis-master
+    volumes:
+      - ${DATA_PATH}/redis-master:/data/
+      - ${REDIS_MASTER_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_MASTER_PORT}:6379"
+    networks:
+      - backend
+  redis-slave:
+    build: ./redis-slave
+    volumes:
+      - ${DATA_PATH}/redis-slave:/data/redis
+      - ${REDIS_SLAVE_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_SLAVE_PORT}:6379"
+    networks:
+      - backend
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
