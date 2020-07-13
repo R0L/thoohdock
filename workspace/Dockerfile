@@ -1,5 +1,7 @@
 FROM thoohdock_php73:latest
 
+COPY ./.ssh /root/.ssh
+
 #####################################
 # Composer:
 #####################################
