@@ -1,0 +1,74 @@
+version: "3"
+services:
+  redis-master-1:
+    build: ./redis-master-1
+    volumes:
+      - ${DATA_PATH}/redis-master-1:/data/
+      - ${REDIS_MASTER_1_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_MASTER_1_PORT}:6379"
+      - "${REDIS_MASTER_1_EXTEND_PORT}:16379"
+    networks:
+      backend:
+        ipv4_address: 172.19.0.2
+  redis-master-2:
+    build: ./redis-master-2
+    volumes:
+      - ${DATA_PATH}/redis-master-2:/data/
+      - ${REDIS_MASTER_2_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_MASTER_2_PORT}:6380"
+      - "${REDIS_MASTER_2_EXTEND_PORT}:16380"
+    networks:
+      backend:
+        ipv4_address: 172.19.0.3
+  redis-master-3:
+    build: ./redis-master-3
+    volumes:
+      - ${DATA_PATH}/redis-master-3:/data/
+      - ${REDIS_MASTER_3_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_MASTER_3_PORT}:6381"
+      - "${REDIS_MASTER_3_EXTEND_PORT}:16381"
+    networks:
+      backend:
+        ipv4_address: 172.19.0.4
+  redis-slave-1:
+    build: ./redis-slave-1
+    volumes:
+      - ${DATA_PATH}/redis-slave-1:/data/redis
+      - ${REDIS_SLAVE_1_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_SLAVE_1_PORT}:6382"
+      - "${REDIS_SLAVE_1_EXTEND_PORT}:16382"
+    networks:
+      backend:
+        ipv4_address: 172.19.0.5
+  redis-slave-2:
+    build: ./redis-slave-2
+    volumes:
+      - ${DATA_PATH}/redis-slave-2:/data/redis
+      - ${REDIS_SLAVE_2_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_SLAVE_2_PORT}:6383"
+      - "${REDIS_SLAVE_2_EXTEND_PORT}:16383"
+    networks:
+      backend:
+        ipv4_address: 172.19.0.6
+  redis-slave-3:
+    build: ./redis-slave-3
+    volumes:
+      - ${DATA_PATH}/redis-slave-3:/data/redis
+      - ${REDIS_SLAVE_3_LOG_PATH}:/var/log/redis
+    ports:
+      - "${REDIS_SLAVE_3_PORT}:6384"
+      - "${REDIS_SLAVE_3_EXTEND_PORT}:16384"
+    networks:
+      backend:
+        ipv4_address: 172.19.0.7
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16

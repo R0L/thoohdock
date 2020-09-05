@@ -136,7 +136,7 @@ services:
       - redis
 
   redis-cluster:
-    build: ./redis-cluster
+    build: redis-cluster-more
     ports:
       - "${REDIS_CLUSTER_PORT_RANGE}:7000-7005"
     networks:
